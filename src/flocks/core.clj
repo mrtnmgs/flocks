@@ -7,34 +7,36 @@
   (q/frame-rate 30)
   ; Set color mode to HSB (HSV) instead of default RGB.
   (q/color-mode :hsb)
-  ; setup function returns initial state. It contains
-  ; circle color and position.
-  {:color 0
-   :angle 0})
+  ; setup function returns initial state. 
+  {})
 
 (defn update-state [state]
-  ; Update sketch state by changing circle color and position.
-  {:color (mod (+ (:color state) 0.7) 255)
-   :angle (+ (:angle state) 0.1)})
+  {})
+
+(defn draw-bird [pos]
+  (q/triangle 10 10 20 20 30 30)
+  ; (let [angle 45
+  ;       x (* 150 (q/cos angle))
+  ;       y (* 150 (q/sin angle))
+  ;       pos [20 20]]
+  ;   ; Move origin point to the center of the sketch.
+  ;   (q/with-translation [(/ (q/width) 2)
+  ;                        (/ (q/height) 2)]
+; ))
+)
+
+(defn draw-flock [flocksize]
+      (draw-bird [10 20]))
+
 
 (defn draw-state [state]
-  ; Clear the sketch by filling it with light-grey color.
   (q/background 240)
-  ; Set circle color.
-  (q/fill (:color state) 255 255)
+  (q/fill 0)
   ; Calculate x and y coordinates of the circle.
-  (let [angle (:angle state)
-        x (* 150 (q/cos angle))
-        y (* 150 (q/sin angle))]
-    ; Move origin point to the center of the sketch.
-    (q/with-translation [(/ (q/width) 2)
-                         (/ (q/height) 2)]
-      ; Draw the circle.
-      (q/ellipse x y 100 100))))
-
-
+  (draw-flock 4)
+)
 (q/defsketch flocks
-  :title "You spin my circle right round"
+  :title "Flocks"
   :size [500 500]
   ; setup function called only once, during sketch initialization.
   :setup setup
