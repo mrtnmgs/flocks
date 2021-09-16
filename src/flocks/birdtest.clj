@@ -8,12 +8,12 @@
   ; Set frame rate to 30 frames per second.
   (q/frame-rate 30)
   ; Set color mode to HSB (HSV) instead of default RGB.
-  (q/color-mode :hsb)
+;  (q/color-mode :hsb)
   ; setup function returns initial state.
-  {:x 80 :y 80 :vx 1 :vy -1})
+  {:x 80 :y 80 :vx 1 :vy 1 :a 1})
 
 (defn update-state [state]
-  {:x (+ (:x state) (:vx state)) :y (+ (:y state) (:vy state)) :vx (:vx state) :vy (:vy state)})
+  {:x (+ (:x state) (:vx state)) :y (+ (:y state) (:vy state)) :vx (Math/cos (:a state)) :vy (Math/sin (:a state)) :a (+ (:a state) 0.01)})
 
 (defn draw-state [state]
   (q/background 240)
