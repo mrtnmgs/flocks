@@ -2,19 +2,24 @@
   (:require [quil.core :as q]
             [quil.middleware :as m]))
 
+(load "utils")
+
 (defn setup []
   ; Set frame rate to 30 frames per second.
   (q/frame-rate 30)
   ; Set color mode to HSB (HSV) instead of default RGB.
   (q/color-mode :hsb)
+  (def flocksize 10)
+  (defn randcoords [] ([(rand-int (q/width)) (rand-int (q/height))]))
+  (def initstate (vec (map (comp ref vec) (repeatedly flocksize randcoords))))
   ; setup function returns initial state. 
-  {})
+  {:flock initstate})
 
 (defn update-state [state]
   {})
 
 (defn draw-bird [pos]
-  (q/triangle 10 10 20 20 30 30)
+  (q/triangle 10 10 20 30 30 20)
   ; (let [angle 45
   ;       x (* 150 (q/cos angle))
   ;       y (* 150 (q/sin angle))
@@ -35,6 +40,7 @@
   ; Calculate x and y coordinates of the circle.
   (draw-flock 4)
 )
+
 (q/defsketch flocks
   :title "Flocks"
   :size [500 500]
@@ -48,7 +54,6 @@
   ; Check quil wiki for more info about middlewares and particularly
   ; fun-mode.
   :middleware [m/fun-mode])
-
 
 (defn -main [& args])
 
