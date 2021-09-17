@@ -5,11 +5,11 @@
             [flocks.flock :as flock]))
 
 (defn setup []
-  (def flocksize 100)
+  (def flocksize 1000)
   (def w (q/width))
   (def h (q/height))
 
-  (q/frame-rate 3)
+  (q/frame-rate 30)
   (q/color-mode :hsb)
   ; setup function returns initial state. 
   {:flock (flock/init w h flocksize)})
@@ -17,7 +17,9 @@
 (defn update-state [state]
   ;(println "UPDATE")
   ;(println (map deref (:flock state)))
-  state)
+  (def newflock (flock/move (:flock state)))
+  ;(println newflock)
+  {:flock newflock})
 
 (defn draw-state [state]
   (q/background 240)

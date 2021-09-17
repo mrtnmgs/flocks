@@ -11,9 +11,9 @@
 (defn init [w h flocksize] (vec (map vec (repeatedly flocksize #(randcoords w h)))))
 
 (defn draw [flock]
-  (doseq [[x y vx vy] flock] (bird/draw x y vx vy))
+  (doseq [b flock] (bird/draw b))
 )
 
-; (defn move [flock]
-;   (doseq [x y
- ;  )
+(defn move [flock]
+  (map bird/move flock)
+)

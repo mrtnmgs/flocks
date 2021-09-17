@@ -7,7 +7,7 @@
 (defn normalize [x y]
   (let [m (magnitude x y)] [(/ x m) (/ y m)]))
 
-(defn draw [x y vx vy]
+(defn draw [[ x y vx vy ]]
   (let [[nx ny] (normalize vx vy)]
     (q/stroke-weight 1)
     (q/stroke 255 0 0)
@@ -27,6 +27,6 @@
     )
   )
 
-(defn move [x y vx vy]
+(defn move [[x y vx vy]]
   [(+ x vx) (+ y vy) vx vy]
 )
