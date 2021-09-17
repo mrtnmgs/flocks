@@ -4,7 +4,7 @@
 
 (defn randpos [maxw maxh] [(rand-int maxw) (rand-int maxh)])
 
-(defn randveloc [] [(- 1 (rand 2)) (- 1 (rand 2))])
+(defn randveloc [] (q/random-2d))
 
 (defn randcoords [w h] (vec (concat (randpos w h) (randveloc))))
 
