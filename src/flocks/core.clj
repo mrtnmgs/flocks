@@ -16,11 +16,11 @@
   ; Set color mode to HSB (HSV) instead of default RGB.
   (q/color-mode :hsb)
   ; setup function returns initial state. 
-  ; (println (map deref initstate))
+  ;(println (map deref (:flock initstate)))
   {:flock initstate})
 
 (defn update-state [state]
-  {})
+  state)
 
 (defn draw-state [state]
   (q/background 240)
