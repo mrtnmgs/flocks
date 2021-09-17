@@ -2,24 +2,26 @@
   (:require [quil.core :as q]
             [quil.middleware :as m]
             [flocks.utils :as utils]
-            [flocks.flock :as flock]))
+            [flocks.flock :as flock]
+            [flocks.rules :as r]))
 
 (defn setup []
-  (def flocksize 1000)
+  (def flocksize 100)
   (def w (q/width))
   (def h (q/height))
 
   (q/frame-rate 30)
-  (q/color-mode :hsb)
-  ; setup function returns initial state. 
+  ; setup function returns initial state.
   {:flock (flock/init w h flocksize)})
 
 (defn draw-state [state]
   (q/background 240)
   (q/fill 0)
-  ;(println (:flock state))
-  (flock/draw @(:flock state))
-  (swap! (:flock state) flock/move)
+  (let [ cohesion (r/calc-flock-cohesion-alignment @(:flock state)) ]
+    (apply r/draw-flock-cohesion-alignment cohesion)
+    (flock/draw @(:flock state))
+    (swap! (:flock state) (fn [flock] (flock/move flock cohesion)))
+    )
 )
 
 (q/defsketch flocks

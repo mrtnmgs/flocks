@@ -14,6 +14,6 @@
   (doseq [b flock] (bird/draw b))
 )
 
-(defn move [flock]
-  (map bird/move flock)
+(defn move [flock, cohesion]
+  (map (fn [bird] (bird/move bird cohesion)) flock)
 )
