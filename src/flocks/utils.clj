@@ -1,3 +1,5 @@
+(ns flocks.utils)
+
 (defn poltocar [radius angle]
     [(/ 180 (* radius (Math/cos (* Math/PI angle))))
     (/ 180 (* radius (Math/sin (* Math/PI angle))))]

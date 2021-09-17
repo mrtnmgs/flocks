@@ -1,10 +1,13 @@
+(ns flocks.bird
+  (:require [quil.core :as q]))
+
 (defn magnitude [x y]
   (let [m (q/sqrt (+ (q/sq x) (q/sq y)))] m))
 
 (defn normalize [x y]
   (let [m (magnitude x y)] [(/ x m) (/ y m)]))
 
-(defn draw-bird [x y vx vy]
+(defn draw [x y vx vy]
   (let [[nx ny] (normalize vx vy)]
     (q/stroke-weight 1)
     (q/stroke 255 0 0)

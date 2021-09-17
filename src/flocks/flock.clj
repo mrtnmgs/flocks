@@ -1,14 +1,12 @@
-(load "draw-bird")
+(ns flocks.flock
+  (:require [quil.core :as q]
+    [flocks.bird :as bird]))
 
-(defn flocksetup [w h flocksize]
-  (defn randcoords [] [(rand-int w) (rand-int h)])
-  (def initstate (vec (map (comp ref vec) (repeatedly flocksize randcoords))))
-  )
+(defn randcoords [maxw maxh] [(rand-int maxw) (rand-int maxh)])
 
-(defn draw-flock [state]
-  ;(q/triangle 10 10 20 30 30 20)
-  ; (defn myfunc [[x y]] (draw-bird x y 1 -1))
-  (defn myfunc [[x y]] (println y))
-  (map myfunc (:flock state))
+(defn init [w h flocksize] (vec (map vec (repeatedly flocksize #(randcoords w h)))))
+
+(defn draw [flock]
+  (doseq [[x y] flock] (bird/draw x y 1 -1))
 )
 
