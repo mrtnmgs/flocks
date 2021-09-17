@@ -1,8 +1,19 @@
-(defn randcoords [w h] ([(rand-int w) (rand-int h)]))
-(defn initstate [w h] (vec (map (comp ref vec) (repeatedly flocksize (randcoords w h)))))
+(ns flocks.flock
+  (:require [quil.core :as q]
+    [flocks.bird :as bird]))
 
-(defn draw-flock [flocksize]
-    ;(draw-bird [10 20])
-   (q/triangle 10 10 30 10 10 30)
+(defn randpos [maxw maxh] [(rand-int maxw) (rand-int maxh)])
+
+(defn randveloc [] (q/random-2d))
+
+(defn randcoords [w h] (vec (concat (randpos w h) (randveloc))))
+
+(defn init [w h flocksize] (atom (repeatedly flocksize #(randcoords w h))))
+
+(defn draw [flock]
+  (doseq [b flock] (bird/draw b))
 )
 
+(defn move [flock]
+  (map bird/move flock)
+)
