@@ -5,7 +5,7 @@
             [flocks.flock :as flock]))
 
 (defn setup []
-  (def flocksize 10)
+  (def flocksize 100)
   (def w (q/width))
   (def h (q/height))
 

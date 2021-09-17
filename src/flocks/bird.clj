@@ -27,3 +27,6 @@
     )
   )
 
+(defn move [x y vx vy]
+  [(+ x vx) (+ y vy) vx vy]
+)
