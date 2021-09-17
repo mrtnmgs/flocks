@@ -8,7 +8,7 @@
 
 (defn randcoords [w h] (vec (concat (randpos w h) (randveloc))))
 
-(defn init [w h flocksize] (vec (map vec (repeatedly flocksize #(randcoords w h)))))
+(defn init [w h flocksize] (atom (repeatedly flocksize #(randcoords w h))))
 
 (defn draw [flock]
   (doseq [b flock] (bird/draw b))

@@ -14,18 +14,12 @@
   ; setup function returns initial state. 
   {:flock (flock/init w h flocksize)})
 
-(defn update-state [state]
-  ;(println "UPDATE")
-  ;(println (map deref (:flock state)))
-  (def newflock (flock/move (:flock state)))
-  ;(println newflock)
-  {:flock newflock})
-
 (defn draw-state [state]
   (q/background 240)
   (q/fill 0)
   ;(println (:flock state))
-  (flock/draw (:flock state))
+  (flock/draw @(:flock state))
+  (swap! (:flock state) flock/move)
 )
 
 (q/defsketch flocks
@@ -34,7 +28,6 @@
   ; setup function called only once, during sketch initialization.
   :setup setup
   ; update-state is called on each iteration before draw-state.
-  :update update-state
   :draw draw-state
   :features [:keep-on-top]
   ; This sketch uses functional-mode middleware.
