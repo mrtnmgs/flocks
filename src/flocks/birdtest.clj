@@ -1,29 +1,40 @@
 (ns flocks.birdtest
-  (:require [quil.core :as q]
-            [quil.middleware :as m]))
+    (:require [quil.core :as q]
+              [quil.middleware :as m]))
 
 (load "draw-bird")
 
+(defn createBird []
+  (let [a (rand (* 2 q/PI))]
+    {
+      :x (rand 500)
+      :y (rand 500)
+      :vx (Math/sin a)
+      :vy (Math/cos a)
+      :a (rand (* 2 q/PI))
+      }))
+
+(defn createFlock [] (repeatedly 20 createBird))
+
+(defn updateBird [b]
+  {
+    :x (+ (:x b) (:vx b))
+    :y (+ (:y b) (:vy b))
+    :vx (Math/cos (:a b))
+    :vy (Math/sin (:a b))
+    :a (+ (:a b) 0.01)
+    })
+
 (defn setup []
-  ; Set frame rate to 30 frames per second.
   (q/frame-rate 30)
-  ; Set color mode to HSB (HSV) instead of default RGB.
-;  (q/color-mode :hsb)
-  ; setup function returns initial state.
-  {:x 80 :y 80 :vx 1 :vy 1 :a 1})
+  (createFlock))
 
-(defn update-state [state]
-  {:x (+ (:x state) (:vx state)) :y (+ (:y state) (:vy state)) :vx (Math/cos (:a state)) :vy (Math/sin (:a state)) :a (+ (:a state) 0.01)})
+(defn update-state [state] (map updateBird state))
 
-(defn draw-state [state]
+(defn draw-state1 [state]
   (q/background 240)
   (q/fill 0)
-  (q/translate 100 100)
-  ; Calculate x and y coordinates of the circle.
-  (draw-bird (:x state) (:y state) (:vx state) (:vy state))
-  (draw-bird 10 10 10 50)
-  (draw-bird 50 50 200 50)
-  (draw-bird 100 100 50 75)
+  (doseq [b state] (draw-bird (:x b) (:y b) (:vx b) (:vy b)))
   )
 
 (q/defsketch flocks
@@ -33,13 +44,12 @@
   :setup setup
   ; update-state is called on each iteration before draw-state.
   :update update-state
-  :draw draw-state
+  :draw draw-state1
   :features [:keep-on-top]
   ; This sketch uses functional-mode middleware.
   ; Check quil wiki for more info about middlewares and particularly
   ; fun-mode.
   :middleware [m/fun-mode])
-
 
 (defn -main [& args])
 
