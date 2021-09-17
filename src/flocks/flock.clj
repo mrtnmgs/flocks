@@ -1,8 +1,14 @@
-(defn randcoords [w h] ([(rand-int w) (rand-int h)]))
-(defn initstate [w h] (vec (map (comp ref vec) (repeatedly flocksize (randcoords w h)))))
+(load "draw-bird")
 
-(defn draw-flock [flocksize]
-    ;(draw-bird [10 20])
-   (q/triangle 10 10 30 10 10 30)
+(defn flocksetup [w h flocksize]
+  (defn randcoords [] [(rand-int w) (rand-int h)])
+  (def initstate (vec (map (comp ref vec) (repeatedly flocksize randcoords))))
+  )
+
+(defn draw-flock [state]
+  ;(q/triangle 10 10 20 30 30 20)
+  ; (defn myfunc [[x y]] (draw-bird x y 1 -1))
+  (defn myfunc [[x y]] (println y))
+  (map myfunc (:flock state))
 )
 

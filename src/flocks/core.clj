@@ -2,25 +2,30 @@
   (:require [quil.core :as q]
             [quil.middleware :as m]))
 
-(def flocksize 10)
 (load "utils")
 (load "flock")
 
 (defn setup []
+  (def flocksize 10)
+  (def w (q/width))
+  (def h (q/height))
+
+  (flocksetup w h flocksize) ; defines initstate. Can't be done before we get w and h 
   ; Set frame rate to 30 frames per second.
   (q/frame-rate 30)
   ; Set color mode to HSB (HSV) instead of default RGB.
   (q/color-mode :hsb)
   ; setup function returns initial state. 
-  {:flock (initstate q/width q/height)})
+  ;(println (map deref (:flock initstate)))
+  {:flock initstate})
 
 (defn update-state [state]
-  {})
+  state)
 
 (defn draw-state [state]
   (q/background 240)
   (q/fill 0)
-  (draw-flock 4)
+  (draw-flock state)
 )
 
 (q/defsketch flocks
