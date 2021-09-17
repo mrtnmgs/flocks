@@ -2,7 +2,7 @@
     (:require [quil.core :as q]
               [quil.middleware :as m]))
 
-(load "draw-bird")
+(load "bird")
 (load "sim")
 
 (defn createBird []
@@ -27,9 +27,9 @@
 (defn draw-state [state]
   (q/background 240)
   (q/fill 0)
-  (doseq [b state] (apply draw-bird b))
+  (doseq [b state] (flocks.bird/draw b))
   (let [c (calc-flock-cohesion-alignment state)]
-    (apply draw-flock-cohesion-alignment c)
+    (apply flocks.bird/draw-flock-cohesion-alignment c)
     )
   )
 
