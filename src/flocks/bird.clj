@@ -10,7 +10,7 @@
 
     (q/push-matrix)
     (q/translate x y)
-    (q/line 0 0 (* vx 20) (* vy 20))
+    (q/line 0 0 (* vx 10) (* vy 10))
     (q/pop-matrix)
 
     (q/stroke 0 0 255)
@@ -18,7 +18,7 @@
 
     (q/push-matrix)
     (q/translate x y)
-    (q/triangle (* ny -5) (* nx 5) (* ny 5) (* nx -5) (* nx 10) (* ny 10))
+    (q/triangle (* ny -5) (* nx 5) (* ny 5) (* nx -5) (* nx 12) (* ny 12))
     (q/pop-matrix)
     )
   )

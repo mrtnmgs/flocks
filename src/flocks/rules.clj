@@ -12,7 +12,7 @@
   (let [[nx ny] (u/normalize vx vy)]
     (q/stroke-weight 1)
     (q/stroke 255 0 0)
-    (q/line x y (+ x (* nx 20)) (+ y (* ny 20)))
+    (q/line x y (+ x (* nx 10)) (+ y (* ny 10)))
 
     (q/stroke-weight 5)
     (q/stroke 0 0 255)

@@ -26,7 +26,7 @@
 
 (q/defsketch flocks
   :title "Flocks"
-  :size [500 500]
+  :size [1024 768]
   ; setup function called only once, during sketch initialization.
   :setup setup
   ; update-state is called on each iteration before draw-state.
